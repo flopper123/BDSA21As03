@@ -11,15 +11,12 @@ namespace Assignment03.Tests
     public void FlattensCorrectlyOnValidInput(List<int>[] test, List<int> exp)
     {
       // Arrange
-      int[] expected = new int[exp.Count];
-      for (int i = 0; i < exp.Count; i++) {
-        expected[i] = exp[i];
-      }
+      IEnumerable<int> expected = exp;
 
       IEnumerable<int>[] input = (IEnumerable<int>[])test;
 
       // Act
-      int[] actual = input.Flatten();
+      IEnumerable<int> actual = input.Flatten();
 
       // Assert
       Assert.Equal(expected, actual);
@@ -44,6 +41,16 @@ namespace Assignment03.Tests
         },
         new List<int> { // Expected
           6, 5, 4, 3, 2, 1
+        }
+      },
+      new object[] {
+        new List<int>[] { // Input
+          new List<int> { 4, 2 },
+          new List<int> { },
+          new List<int> { 4 }
+        },
+        new List<int> { // Expected
+          4, 2, 4
         }
       },
       new object[] {
