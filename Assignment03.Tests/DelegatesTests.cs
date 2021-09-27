@@ -60,9 +60,9 @@ namespace Assignment03.Tests
       // Arranage
       int expected = exp;
 
-      Func<string, int> stringOperation;
-      stringOperation =
-        str => str
+      Func<string, int, bool> stringIntOperation;
+      stringIntOperation =
+        (str, num) => num == str
           .ToArray()
           .Aggregate(0,
             (acc, c) => {
@@ -73,11 +73,41 @@ namespace Assignment03.Tests
           );
 
       // Act
-      int actual = stringOperation(input);
+      bool compared = stringIntOperation(input, exp);
 
       // Assert
-      Assert.Equal(expected, actual);
+      Assert.True(compared);
+    }
 
+    [Theory]
+    [InlineData(new object[] { "AABB", 27 })]
+    [InlineData(new object[] { "SKRT 23", 35 })]
+    [InlineData(new object[] { "oui", 33 })]
+    [InlineData(new object[] { "  001 A 001", 1 })]
+    [InlineData(new object[] { "23 b 4056", 23456 })]
+    public void StringNotMatchNumber(string input, int exp)
+    {
+      // Arranage
+      int expected = exp;
+
+      Func<string, int, bool> stringIntOperation;
+      stringIntOperation =
+        (str, num) => num == str
+          .ToArray()
+          .Aggregate(0,
+            (acc, c) =>
+            {
+              int n = c - '0';
+              if (n > 9 || n < 0) return acc;
+              return 10 * acc + n;
+            }
+          );
+
+      // Act
+      bool compared = stringIntOperation(input, exp);
+
+      // Assert
+      Assert.False(compared);
     }
 
 
