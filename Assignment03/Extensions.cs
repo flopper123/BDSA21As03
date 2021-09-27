@@ -10,6 +10,8 @@ namespace Assignment03
       return items.SelectMany(x => x.ToList());
     }
 
-    // public static IE
+    public static IEnumerable<int> DivisibleBySeven(this IEnumerable<int> numbers) {
+      return numbers.Where(x => (x % 7 == 0 && x > 42));
+    }
   }
 }
