@@ -13,5 +13,9 @@ namespace Assignment03
     public static IEnumerable<int> DivisibleBySeven(this IEnumerable<int> numbers) {
       return numbers.Where(x => (x % 7 == 0 && x > 42));
     }
+
+    public static IEnumerable<int> LeapYears(this IEnumerable<int> years) {
+      return years.Where(year => (year >= 1582) && (year % 4 == 0) && (year % 100 != 0 || year % 400 == 0));
+    }
   }
 }
