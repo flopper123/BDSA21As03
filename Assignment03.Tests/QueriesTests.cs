@@ -19,10 +19,10 @@ namespace Assignment03.Tests
               };
 
             // Act
-            IEnumerable<string> LineActual = WizardDB.getWizardNamesFromRowling();
             IEnumerable<string> QueryActual = Queries.getWizardNamesFromRowling(WizardDB);
+
             // Assert
-            Assert.Equal(expected, LineActual);
+            Assert.Equal(expected, WizardDB.getWizardNamesFromRowling());
             Assert.Equal(expected, QueryActual);
         }
 
@@ -33,10 +33,10 @@ namespace Assignment03.Tests
             int expected = 1977;
 
             // Act
-            var LineActual = WizardDB.getFirstSithLord();
             var QueryActual = Queries.getFirstSithLord(WizardDB);
+
             // Assert
-            Assert.Equal(expected, LineActual);
+            Assert.Equal(expected, WizardDB.getFirstSithLord());
             Assert.Equal(expected, QueryActual);
         }
 
@@ -52,19 +52,31 @@ namespace Assignment03.Tests
               };
 
             // Act
-            IEnumerable<(string, int?)> LineActual = WizardDB.getUniqueHPWizards();
             IEnumerable<(string, int?)> QueryActual = Queries.getUniqueHPWizards(WizardDB);
+
             // Assert
-            Assert.Equal(expected, LineActual);
+            Assert.Equal(expected, WizardDB.getUniqueHPWizards());
             Assert.Equal(expected, QueryActual);
 
         }
-
+        
         [Fact]
-        public void Should_Return_Correct_Answer()
+        public void return_List_Sorted_By_Author_then_Name()
         {
+            var expected = new List<string>
+            {
+              "Eggplant Wizard", "Baron Mordo", "Wizard of Oz", "Sauron", "Hagrid", "Harry Potter", "Snape", "Darth Maul", "Darth Vadar", "Ice King"
+            };
 
+            foreach (var item in expected)
+            {
+              Console.WriteLine(item);
+            }
 
+            IEnumerable<string> QueryActual = Queries.getWizardNamesByCreatorInReverseThenWizard(WizardDB);
+
+            Assert.NotStrictEqual(expected, QueryActual);
+            Assert.NotStrictEqual(expected, WizardDB.getWizardNamesByCreatorInReverseThenWizard());
         }
     }
 }

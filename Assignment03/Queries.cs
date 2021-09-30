@@ -32,11 +32,11 @@ namespace Assignment03
             return UniqueHPWizards.Distinct();
         }
 
-        public static IEnumerable<string> getGroupedNamesByCreatorInReverseThenWizard(IEnumerable<Wizard> input)
+        public static IEnumerable<string> getWizardNamesByCreatorInReverseThenWizard(IEnumerable<Wizard> input)
         {
-            var GroupedWizards = from w in input
+            var GroupedWizards = (from w in input
                                  orderby w.Creator descending, w.Name
-                                 select w.Name;
+                                 select w.Name).Distinct();
             return GroupedWizards;
         }
 
