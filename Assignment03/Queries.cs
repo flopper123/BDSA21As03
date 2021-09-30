@@ -34,12 +34,12 @@ namespace Assignment03
                 .Select(w => w.First());
     }
 
-    public static IEnumerable<(String, IEnumerable<String>)> extension_getGroupedNamesByCreatorInReverseThenWizard()
+    /*public static IEnumerable<(String, IEnumerable<String>)> extension_getGroupedNamesByCreatorInReverseThenWizard()
     {
       return GetWizards()
                 .GroupBy(w => w.Creator)
                 .Select(g => (g.First().Creator, g.Select(w => w.Name)));
-    }
+    }*/
 /*
 
 
