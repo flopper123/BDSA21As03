@@ -9,7 +9,7 @@ namespace Assignment03.Tests
     {
       var wizards = Wizard.Wizards.Value;
 
-      Assert.Equal(2, wizards.Count);
+      Assert.Equal(6, wizards.Count);
     }
 
     [Theory]
@@ -20,10 +20,10 @@ namespace Assignment03.Tests
       var wizards = Wizard.Wizards.Value;
 
       Assert.Contains(wizards, w =>
-          w.Name == name &&
-          w.Medium == medium &&
-          w.Year == year &&
-          w.Creator == creator
+        w.Name == name &&
+        w.Medium == medium &&
+        w.Year == year &&
+        w.Creator == creator
       );
     }
   }
