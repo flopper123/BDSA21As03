@@ -4,49 +4,79 @@ using System.Collections.Generic;
 
 namespace Assignment03
 {
-  public class Queries
-  {
-
-    private static IEnumerable<Wizard> GetWizards() {
-      return Wizard.Wizards.Value;
-    }
-
-    public static IEnumerable<String> extension_getWizardNamesFromRowling() { 
-      return GetWizards()
-                .Where(w => w.Creator.Contains("Rowling"))
-                .Select(w => w.Name);
-    }
-
-    public static int extension_getFirstSithLord()
+    public class Queries
     {
-      return GetWizards()
-                .Where(w => w.Name.StartsWith("Darth"))
-                .Select(w => (int)w.Year)
-                .OrderBy(y => y)
-                .First();
-    }
+        private static IEnumerable<Wizard> GetWizards()
+        {
+            return Wizard.Wizards.Value;
+        }
 
-    public static IEnumerable<(int, String)> extension_getUniqueHPWizards() {
-      return GetWizards()
+        public static IEnumerable<string> getWizardNamesFromRowlingLine()
+        {
+            return GetWizards()
+                            .Where(w => w.Creator.Contains("Rowling"))
+                            .Select(w => w.Name);
+        }
+
+        public static IEnumerable<string> getWizardNamesFromRowlingQuery()
+        {
+            var wizards = from w in GetWizards()
+                          where w.Creator == "J.K. Rowling"
+                          select w.Name;
+
+            return wizards;
+        }
+
+        public static int? getFirstSithLordLine()
+        {
+            return GetWizards()
+                      .Where(w => w.Name.StartsWith("Darth "))
+                      .Select(w => (int)w.Year)
+                      .OrderBy(y => y)
+                      .FirstOrDefault();
+        }
+
+        public static int? getFirstSithLordQuery()
+        {
+            var firstSith = (from w in GetWizards()
+                             where w.Name.StartsWith("Darth ")
+                             orderby w.Year
+                             select w.Year).First();
+            return firstSith;
+        }
+
+        public static IEnumerable<(string, int?)> getUniqueHPWizardsLine()
+        {
+            return GetWizards()
                 .Where(w => w.Medium.Equals("Harry Potter"))
-                .Select(w => ((int)w.Year, (String)w.Name))
+                .Select(w => ((String)w.Name, (int?)w.Year))
                 .GroupBy(w => w.Item2)
                 .Select(w => w.First());
+        }
+
+        public static IEnumerable<(string, int?)> getUniqueHPWizardsQuery()
+        {
+            var UniqueHPWizards = from w in GetWizards()
+                                  where w.Medium.Equals("Harry Potter")
+                                  select (w.Name, w.Year);
+
+            return UniqueHPWizards.Distinct();
+        }
+
+        public static IEnumerable<string> getWizardNamesByCreatorInReverseThenWizardLine()
+        {
+            return GetWizards()
+                      .OrderByDescending(w => w.Creator).ThenBy(w => w.Name)
+                      .Select(w => w.Name);
+        }
+
+        public static IEnumerable<string> getGroupedNamesByCreatorInReverseThenWizardQuery()
+        {
+            var GroupedWizards = from w in GetWizards()
+                                 orderby w.Creator descending, w.Name
+                                 select w.Name;
+            return GroupedWizards;
+        }
+
     }
-
-    /*public static IEnumerable<(String, IEnumerable<String>)> extension_getGroupedNamesByCreatorInReverseThenWizard()
-    {
-      return GetWizards()
-                .GroupBy(w => w.Creator)
-                .Select(g => (g.First().Creator, g.Select(w => w.Name)));
-    }*/
-/*
-
-
-    public (int, string) getGroupedNamesByCreatorInReverseThenWizard()
-    {
-
-    }*/
-
-  }
 }

@@ -4,102 +4,64 @@ using System.Collections.Generic;
 
 namespace Assignment03.Tests
 {
-  public class QueriesTests
-  {
-    [Fact]
-    public void Returns_Character_Names_From_Rowling()
+    public class QueriesTests
     {
-      // Arrange
-      IEnumerable<string> expected = new List<string> {
+        [Fact]
+        public void Returns_Character_Names_From_Rowling()
+        {
+            // Arrange
+            IEnumerable<string> expected = new List<string>
+      {
         "Harry Potter", "Snape", "Hagrid"
       };
 
-      // Act
-      IEnumerable<string> actual = Queries.extension_getWizardNamesFromRowling();
+            // Act
+            IEnumerable<string> LineActual = Queries.getWizardNamesFromRowlingLine();
+            IEnumerable<string> QueryActual = Queries.getWizardNamesFromRowlingQuery();
+            // Assert
+            Assert.Equal(expected, LineActual);
+            Assert.Equal(expected, QueryActual);
+        }
 
-      // Assert
-      Assert.Equal(expected, actual);
-    
-    }
+        [Fact]
+        public void Finds_First_Sith_Lord()
+        {
+            // Arrange
+            int expected = 1977;
 
-    [Fact]
-    public void Finds_First_Sith_Lord()
-    {
-      // Arrange
-      int expected = 1977;
+            // Act
+            var LineActual = Queries.getFirstSithLordLine();
+            var QueryActual = Queries.getFirstSithLordQuery();
+            // Assert
+            Assert.Equal(expected, LineActual);
+            Assert.Equal(expected, QueryActual);
+        }
 
-      // Act
-      int actual = Queries.extension_getFirstSithLord();
-
-      // Assert
-      Assert.Equal(expected, actual);
-
-    }
-
-    [Fact]
-    public void Should_Return_HP_Touple()
-    {
-      // Arrange
-      IEnumerable<(int, string)> expected = new List<(int, string)> {
-        (1652, "Harry Potter"),
-        (1888, "Snape"),
-        (2232, "Hagrid")
+        [Fact]
+        public void Should_Return_HP_Touple()
+        {
+            // Arrange
+            var expected = new List<(string, int?)>
+      {
+        ("Harry Potter", 1652),
+        ("Snape", 1888),
+        ("Hagrid", 2232)
       };
 
-      // Act
-      IEnumerable<(int, string)> actual = Queries.extension_getUniqueHPWizards();
+            // Act
+            IEnumerable<(string, int?)> LineActual = Queries.getUniqueHPWizardsLine();
+            IEnumerable<(string, int?)> QueryActual = Queries.getUniqueHPWizardsQuery();
+            // Assert
+            Assert.Equal(expected, LineActual);
+            Assert.Equal(expected, QueryActual);
 
-      // Assert
-      Assert.Equal(expected, actual);
+        }
 
+        [Fact]
+        public void Should_Return_Correct_Answer()
+        {
+
+
+        }
     }
-
-    /**
-
-      "Darth Vader","Star Wars",1977,"George Lucas"
-      "Sauron","The Fellowship of the Ring",1954,"J.R.R. Tolkien"
-      "Harry Potter","Harry Potter",1652,"J.K. Rowling"
-      "Snape","Harry Potter",1888,"J.K. Rowling"
-      "Hagrid","Harry Potter",2232,"J.K. Rowling"
-      "Darth Maul","Star Wars",1982,"George Lucas"
-
-
-      "J.R.R. Tolkien" - "Sauron"
-      "J.K. Rowling" - "Snape"
-      "J.K. Rowling" - "Harry Potter"
-      "J.K. Rowling" - "Hagrid"
-      "George Lucas" - "Darth Vader"
-      "George Lucas" - "Darth Maul"
-    */
-
-    /*[Fact]
-    public void Should_Return_Correct_Answer()
-    {
-      // Arrange
-      IEnumerable<(String, IEnumerable<String>)> expected = new List<(String, IEnumerable<String>)> {
-        ("J.R.R. Tolkien", new List<String> {
-          "Sauron"
-        }),
-
-        ("J.K. Rowling", new List<String> {
-          "Snape",
-          "Harry Potter",
-          "Hagrid"
-        }),
-
-        ("George Lucas", new List<String> {
-          "Darth Vader",
-          "Darth Maul"
-        }),
-      };
-
-      // Act
-      IEnumerable<(String, IEnumerable<String>)> actual = Queries.extension_getGroupedNamesByCreatorInReverseThenWizard();
-       
-
-      // Assert
-      Assert.Equal(expected, actual);
-
-    }*/
-  }
 }
