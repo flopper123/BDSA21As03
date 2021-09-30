@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Assignment03
 {
@@ -16,6 +17,14 @@ namespace Assignment03
 
     public static IEnumerable<int> LeapYears(this IEnumerable<int> years) {
       return years.Where(year => (year >= 1582) && (year % 4 == 0) && (year % 100 != 0 || year % 400 == 0));
+    }
+
+    public static bool isSecure(this Uri url){
+      return url.Scheme == Uri.UriSchemeHttps;
+    }
+
+    public static int wordCount(this String line){
+      return Regex.Split(line, @"[^a-zA-ZæøåÆØÅ]+").Length;
     }
   }
 }
