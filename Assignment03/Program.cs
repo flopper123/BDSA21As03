@@ -4,12 +4,12 @@ using System.Linq;
 
 namespace Assignment03
 {
-  class Program
-  {
-    static void Main(string[] args) 
+    class Program
     {
-        //done
+        static void Main(string[] args)
+        {
+           Console.WriteLine("You're a Wizard, TA!");  
+        }
     }
-  }
 }
 
